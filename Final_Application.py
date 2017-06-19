@@ -93,7 +93,7 @@ class Ui_MainWindow(object):
         print("starting the detection program ")
         # location of cascade classfier
         face_cascade = cv2.CascadeClassifier(
-            '/home/sasi/opencv/data/haarcascades/haarcascade_frontalface_default.xml')
+            'haarcascade_frontalface_default.xml')
         cam = cv2.VideoCapture(0)  # capture the frames
         # running the loop again and again
         while True:
@@ -118,12 +118,12 @@ class Ui_MainWindow(object):
         print("Creating pictures for dataset")
 
         faceDetect = cv2.CascadeClassifier(
-            "/home/sasi/opencv/data/haarcascades/haarcascade_frontalface_default.xml")
+            "haarcascade_frontalface_default.xml")
         cam = cv2.VideoCapture(0)
 
         # function for accessing the student database(sqlite3)
         def insertOrUpdate(Id, Name):
-            conn = sqlite3.connect("/home/sasi/Documents/PythonProjects/Face_Reg/Facebase.db")
+            conn = sqlite3.connect("Face_Reg/Facebase.db")
             cmd = "SELECT * FROM students WHERE ID=" + str(Id)
             cursor = conn.execute(cmd)
             isRecordExist = 0
@@ -221,21 +221,21 @@ class Ui_MainWindow(object):
                 file.write(data + "\n")
 
         def resetdatabase():
-            conn = sqlite3.connect("/home/sasi/Documents/PythonProjects/Face_Reg/Facebase.db")
+            conn = sqlite3.connect("Face_Reg/Facebase.db")
             cmd = "UPDATE students SET presentORnot=" + str(0)
             conn.execute(cmd)
             conn.commit()
             conn.close()
 
         def update_presentORnot(id):
-            conn = sqlite3.connect("/home/sasi/Documents/PythonProjects/Face_Reg/Facebase.db")
+            conn = sqlite3.connect("Face_Reg/Facebase.db")
             cmd = "UPDATE students SET presentORnot=" + str(1) + " WHERE ID=" + str(id)
             conn.execute(cmd)
             conn.commit()
             conn.close()
 
         def write_in_file():
-            conn = sqlite3.connect("/home/sasi/Documents/PythonProjects/Face_Reg/Facebase.db")
+            conn = sqlite3.connect("Face_Reg/Facebase.db")
             cmd = "SELECT ID,Name,Rollno FROM students WHERE presentORnot=" + str(1)
             cursor = conn.execute(cmd)
             profile = None
@@ -247,7 +247,7 @@ class Ui_MainWindow(object):
         # access the database and displays the information for the respective ID
         def getprofiles(id):
             conn = sqlite3.connect(
-                "/home/sasi/Documents/PythonProjects/Face_Reg/Facebase.db")  # connect to the database
+                "Facebase.db")  # connect to the database
             cmd = "SELECT * FROM students WHERE ID=" + str(id)
             cursor = conn.execute(cmd)
             profile = None
@@ -257,11 +257,11 @@ class Ui_MainWindow(object):
             return profile
 
         faceDetect = cv2.CascadeClassifier(
-            "/home/sasi/opencv/data/haarcascades/haarcascade_frontalface_default.xml")
+            "haarcascade_frontalface_default.xml")
         cam = cv2.VideoCapture(0)
         rec = cv2.face.createLBPHFaceRecognizer()  # LBPH face recognizer for detecting the trained faces
         rec.load(
-            "/home/sasi/Documents/PythonProjects/Face_Reg/recognizer/trainningData.yml")  # load the trained data
+            "trainningData.yml")  # load the trained data
         id = 0
         font = cv2.FONT_HERSHEY_SIMPLEX  # font for display the information
         while cam.isOpened():
@@ -290,7 +290,7 @@ class Ui_MainWindow(object):
             # 1/waitkey = number of frames persecond
             if cv2.waitKey(1) & 0xff == ord("c"):
                 break
-        append_to_file("/home/sasi/Documents/PythonProjects/Face_Reg/Attendance/attendance.txt", write_in_file())
+        append_to_file("Attendance/attendance.txt", write_in_file())
         resetdatabase()
         cam.release()
         cv2.destroyAllWindows()
@@ -301,12 +301,12 @@ class Ui_MainWindow(object):
         from email.mime.multipart import MIMEMultipart
         from email.mime.text import MIMEText
 
-        fromaddr = "saprogramtx1@gmail.com"
-        toaddr = "freyjasasigg@gmail.com"
+        fromaddr = "your email"
+        toaddr = "your email"
 
-        username = "saprogramtx1"
-        password = "iamaprogrammer"
-        filename = '/home/sasi/Documents/PythonProjects/Face_Reg/Attendance/attendance.txt'
+        username = "email name"
+        password = "password"
+        filename = 'Attendance/attendance.txt'
         f = open(filename)
         msg = MIMEMultipart()
         attachment = MIMEText(f.read())
